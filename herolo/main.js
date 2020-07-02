@@ -92,7 +92,7 @@ var AppRoutingModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvYXBwLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2FwcC5jb21wb25lbnQuY3NzIn0= */"
 
 /***/ }),
 
@@ -195,7 +195,7 @@ var AppModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "h3{\r\n    color: #9b58b5;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9pdGVtcy9ib3VnaHQtaXRlbXMtcGFnZS9pdGVtcy1saXN0L2l0ZW1zLWxpc3QuY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLGNBQWM7QUFDbEIiLCJmaWxlIjoiYXBwL2l0ZW1zL2JvdWdodC1pdGVtcy1wYWdlL2l0ZW1zLWxpc3QvaXRlbXMtbGlzdC5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiaDN7XHJcbiAgICBjb2xvcjogIzliNThiNTtcclxufSJdfQ== */"
+module.exports = "h3{\r\n    color: #9b58b5;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaXRlbXMvYm91Z2h0LWl0ZW1zLXBhZ2UvaXRlbXMtbGlzdC9pdGVtcy1saXN0LmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0FBQ2xCIiwiZmlsZSI6InNyYy9hcHAvaXRlbXMvYm91Z2h0LWl0ZW1zLXBhZ2UvaXRlbXMtbGlzdC9pdGVtcy1saXN0LmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoM3tcclxuICAgIGNvbG9yOiAjOWI1OGI1O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -242,16 +242,17 @@ var ItemsListComponent = /** @class */ (function () {
     }
     ItemsListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.items$ = this.itemsQuery.selectAll();
+        this.items$ = this.itemsQuery.selectAll().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.sort(function (item1, item2) { return (item1.deliveryDate > item2.deliveryDate ? 1 : -1); }); }));
+        ;
         var source = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(10000);
         this.subscription = source.subscribe(function (val) { return _this.getRate(); });
     };
     ItemsListComponent.prototype.getRate = function () {
-        var _this = this;
         this.service.getConversion().subscribe(
         // data => { this.conversionRate = data.rates.USD }
         );
-        this.items$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (items) { return (items.forEach(function (i) { return (tslib__WEBPACK_IMPORTED_MODULE_0__["__assign"]({}, i, { priceUsd: (i.priceIls * _this.conversionRate) })); })); }));
+        // this.items$.pipe(
+        //   map(items => (items.forEach(i => ({ ...i, priceUsd: (i.priceIls * this.conversionRate) })))));
     };
     ItemsListComponent.prototype.receivedClick = function (item) {
         var cloneItem = Object.assign({}, item);
@@ -283,7 +284,7 @@ var ItemsListComponent = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = ".btn{\r\n    background-color: #9b58b5;\r\n    border-color: #9b58b5;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9pdGVtcy9pdGVtL2l0ZW0uY29tcG9uZW50LmNzcyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTtJQUNJLHlCQUF5QjtJQUN6QixxQkFBcUI7QUFDekIiLCJmaWxlIjoiYXBwL2l0ZW1zL2l0ZW0vaXRlbS5jb21wb25lbnQuY3NzIiwic291cmNlc0NvbnRlbnQiOlsiLmJ0bntcclxuICAgIGJhY2tncm91bmQtY29sb3I6ICM5YjU4YjU7XHJcbiAgICBib3JkZXItY29sb3I6ICM5YjU4YjU7XHJcbn0iXX0= */"
+module.exports = ".btn{\r\n    background-color: #9b58b5;\r\n    border-color: #9b58b5;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaXRlbXMvaXRlbS9pdGVtLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSx5QkFBeUI7SUFDekIscUJBQXFCO0FBQ3pCIiwiZmlsZSI6InNyYy9hcHAvaXRlbXMvaXRlbS9pdGVtLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIuYnRue1xyXG4gICAgYmFja2dyb3VuZC1jb2xvcjogIzliNThiNTtcclxuICAgIGJvcmRlci1jb2xvcjogIzliNThiNTtcclxufSJdfQ== */"
 
 /***/ }),
 
@@ -408,7 +409,7 @@ var ItemsModule = /** @class */ (function () {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvaXRlbXMvcmVjaWV2ZWQtaXRlbXMtcGFnZS9yZWNlaXZlZC1pdGVtcy1saXN0L3JlY2VpdmVkLWl0ZW1zLWxpc3QuY29tcG9uZW50LmNzcyJ9 */"
+module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJzcmMvYXBwL2l0ZW1zL3JlY2lldmVkLWl0ZW1zLXBhZ2UvcmVjZWl2ZWQtaXRlbXMtbGlzdC9yZWNlaXZlZC1pdGVtcy1saXN0LmNvbXBvbmVudC5jc3MifQ== */"
 
 /***/ }),
 
@@ -638,7 +639,7 @@ var ItemsStore = /** @class */ (function (_super) {
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IiIsImZpbGUiOiJhcHAvaXRlbXMvc3RvcmVzLXBhZ2Uvc3RvcmVzLmNvbXBvbmVudC5jc3MifQ== */"
+module.exports = "h3{\r\n    color: #9b58b5;\r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvaXRlbXMvc3RvcmVzLXBhZ2Uvc3RvcmVzLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7SUFDSSxjQUFjO0FBQ2xCIiwiZmlsZSI6InNyYy9hcHAvaXRlbXMvc3RvcmVzLXBhZ2Uvc3RvcmVzLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyJoM3tcclxuICAgIGNvbG9yOiAjOWI1OGI1O1xyXG59Il19 */"
 
 /***/ }),
 
@@ -649,7 +650,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"panel-body\">\n  <ul class=\"list-group\">\n      <li class=\" text-center list-group-item\" *ngFor=\"let store of stores$ | async\">\n          <div ><u>{{store.store}}</u></div>   \n          <div>{{count$}}</div> \n      </li>    \n  </ul>\n</div>\n"
+module.exports = "<div class=\"panel-body\">\n  <ul class=\"list-group\">\n      <li class=\" text-center list-group-item\" *ngFor=\"let store of storesList | keyvalue\">\n          <div ><u><h3>{{store.key}}</h3></u></div>   \n          <div>{{store.value}} orderd items</div> \n      </li>    \n  </ul>\n</div>\n"
 
 /***/ }),
 
@@ -666,6 +667,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _state_item_query__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../state/item.query */ "./src/app/items/state/item.query.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
 
 
 
@@ -674,11 +677,36 @@ var StoresComponent = /** @class */ (function () {
         this.itemsQuery = itemsQuery;
     }
     StoresComponent.prototype.ngOnInit = function () {
-        this.stores$ = this.itemsQuery.selectAll(
-        //  ({ store }) => store  
-        );
-        this.count$ = this.itemsQuery.selectCount();
-        console.log(this.count$);
+        var _this = this;
+        this.stores$ = this.itemsQuery.selectAll().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (entities) {
+            return entities.map(function (entity) { return entity.store; });
+        }
+        // .filter((elem, index, self) => {
+        //   return index === self.indexOf(elem);
+        // })
+        ));
+        this.stores$.subscribe(function (res) { return _this.storesList = _this.countItemsPerStore(res); });
+    };
+    StoresComponent.prototype.countItemsPerStore = function (stores) {
+        var storesList = new Map();
+        var current = null;
+        var cnt = 0;
+        for (var i = 0; i < stores.length; i++) {
+            if (stores[i] != current) {
+                if (cnt > 0) {
+                    storesList.set(current, cnt);
+                }
+                current = stores[i];
+                cnt = 1;
+            }
+            else {
+                cnt++;
+            }
+        }
+        if (cnt > 0) {
+            storesList.set(current, cnt);
+        }
+        return storesList;
     };
     StoresComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
@@ -712,7 +740,7 @@ var ItemsList = [
         store: 'Aliexpress',
         priceIls: 10,
         priceUsd: 0,
-        deliveryDate: new Date(),
+        deliveryDate: new Date('04/07/2020'),
         received: false
     },
     {
@@ -754,7 +782,7 @@ var ItemsList = [
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "/* .navbar-container {\r\n    color: rgba(215, 215, 215, 0.71);\r\n    width: 25%;\r\n    background: rgba(0, 0, 0, 0.1);\r\n    backdrop-filter: blur(10px);\r\n}\r\n    .navbar {\r\n      display: flex;\r\n      width: 100%;\r\n    }\r\n    .navbar __item {\r\n        padding: 0 30px;\r\n        border-bottom-width: 8px;\r\n        border-bottom-style: solid;\r\n        font-weight: 800;\r\n        flex: 1 0 0;\r\n        text-align: center;\r\n        line-height: 2;\r\n    }\r\n    .navbar :hover:not(.navbar__item--active) {\r\n          color: white;\r\n        } */\r\n    \r\n.nav-item::after{\r\n    content:'';\r\n    display:block;\r\n    width:0px;\r\n    height:4px;\r\n    background:#9b58b5;\r\n    transition: 0.2s;\r\n    margin-top:-10px;\r\n}\r\n    \r\n.nav-item:hover::after{width:100%;}\r\n    \r\n.nav-link{padding:15px 5px;transition:0.2s;}\r\n    \r\n.navbar-nav .nav-link {\r\n    \r\n    color:#000;\r\n    font-weight:bold;\r\n    font-size:18px;\r\n}\r\n    \r\n.navbar-nav .active > .nav-link{\r\n  \r\n    width:100%;\r\n    height:51px;\r\n    \r\n  border-bottom: .25rem solid transparent;\r\n  border-bottom-color: #9b58b5;\r\n   \r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImFwcC9uYXZiYXIvbmF2YmFyLmNvbXBvbmVudC5jc3MiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztXQXFCVzs7QUFFWDtJQUNJLFVBQVU7SUFDVixhQUFhO0lBQ2IsU0FBUztJQUNULFVBQVU7SUFDVixrQkFBa0I7SUFDbEIsZ0JBQWdCO0lBQ2hCLGdCQUFnQjtBQUNwQjs7QUFFQSx1QkFBdUIsVUFBVSxDQUFDOztBQUdsQyxVQUFVLGdCQUFnQixDQUFDLGVBQWUsQ0FBQzs7QUFFM0M7O0lBRUksVUFBVTtJQUNWLGdCQUFnQjtJQUNoQixjQUFjO0FBQ2xCOztBQUVBOztJQUVJLFVBQVU7SUFDVixXQUFXOztFQUViLHVDQUF1QztFQUN2Qyw0QkFBNEI7O0FBRTlCIiwiZmlsZSI6ImFwcC9uYXZiYXIvbmF2YmFyLmNvbXBvbmVudC5jc3MiLCJzb3VyY2VzQ29udGVudCI6WyIvKiAubmF2YmFyLWNvbnRhaW5lciB7XHJcbiAgICBjb2xvcjogcmdiYSgyMTUsIDIxNSwgMjE1LCAwLjcxKTtcclxuICAgIHdpZHRoOiAyNSU7XHJcbiAgICBiYWNrZ3JvdW5kOiByZ2JhKDAsIDAsIDAsIDAuMSk7XHJcbiAgICBiYWNrZHJvcC1maWx0ZXI6IGJsdXIoMTBweCk7XHJcbn1cclxuICAgIC5uYXZiYXIge1xyXG4gICAgICBkaXNwbGF5OiBmbGV4O1xyXG4gICAgICB3aWR0aDogMTAwJTtcclxuICAgIH1cclxuICAgIC5uYXZiYXIgX19pdGVtIHtcclxuICAgICAgICBwYWRkaW5nOiAwIDMwcHg7XHJcbiAgICAgICAgYm9yZGVyLWJvdHRvbS13aWR0aDogOHB4O1xyXG4gICAgICAgIGJvcmRlci1ib3R0b20tc3R5bGU6IHNvbGlkO1xyXG4gICAgICAgIGZvbnQtd2VpZ2h0OiA4MDA7XHJcbiAgICAgICAgZmxleDogMSAwIDA7XHJcbiAgICAgICAgdGV4dC1hbGlnbjogY2VudGVyO1xyXG4gICAgICAgIGxpbmUtaGVpZ2h0OiAyO1xyXG4gICAgfVxyXG4gICAgLm5hdmJhciA6aG92ZXI6bm90KC5uYXZiYXJfX2l0ZW0tLWFjdGl2ZSkge1xyXG4gICAgICAgICAgY29sb3I6IHdoaXRlO1xyXG4gICAgICAgIH0gKi9cclxuICAgIFxyXG4ubmF2LWl0ZW06OmFmdGVye1xyXG4gICAgY29udGVudDonJztcclxuICAgIGRpc3BsYXk6YmxvY2s7XHJcbiAgICB3aWR0aDowcHg7XHJcbiAgICBoZWlnaHQ6NHB4O1xyXG4gICAgYmFja2dyb3VuZDojOWI1OGI1O1xyXG4gICAgdHJhbnNpdGlvbjogMC4ycztcclxuICAgIG1hcmdpbi10b3A6LTEwcHg7XHJcbn1cclxuXHJcbi5uYXYtaXRlbTpob3Zlcjo6YWZ0ZXJ7d2lkdGg6MTAwJTt9XHJcblxyXG5cclxuLm5hdi1saW5re3BhZGRpbmc6MTVweCA1cHg7dHJhbnNpdGlvbjowLjJzO31cclxuXHJcbi5uYXZiYXItbmF2IC5uYXYtbGluayB7XHJcbiAgICBcclxuICAgIGNvbG9yOiMwMDA7XHJcbiAgICBmb250LXdlaWdodDpib2xkO1xyXG4gICAgZm9udC1zaXplOjE4cHg7XHJcbn1cclxuXHJcbi5uYXZiYXItbmF2IC5hY3RpdmUgPiAubmF2LWxpbmt7XHJcbiAgXHJcbiAgICB3aWR0aDoxMDAlO1xyXG4gICAgaGVpZ2h0OjUxcHg7XHJcbiAgICBcclxuICBib3JkZXItYm90dG9tOiAuMjVyZW0gc29saWQgdHJhbnNwYXJlbnQ7XHJcbiAgYm9yZGVyLWJvdHRvbS1jb2xvcjogIzliNThiNTtcclxuICAgXHJcbn0iXX0= */"
+module.exports = "/* .navbar-container {\r\n    color: rgba(215, 215, 215, 0.71);\r\n    width: 25%;\r\n    background: rgba(0, 0, 0, 0.1);\r\n    backdrop-filter: blur(10px);\r\n}\r\n    .navbar {\r\n      display: flex;\r\n      width: 100%;\r\n    }\r\n    .navbar __item {\r\n        padding: 0 30px;\r\n        border-bottom-width: 8px;\r\n        border-bottom-style: solid;\r\n        font-weight: 800;\r\n        flex: 1 0 0;\r\n        text-align: center;\r\n        line-height: 2;\r\n    }\r\n    .navbar :hover:not(.navbar__item--active) {\r\n          color: white;\r\n        } */\r\n    \r\n.nav-item::after{\r\n    content:'';\r\n    display:block;\r\n    width:0px;\r\n    height:4px;\r\n    background:#9b58b5;\r\n    transition: 0.2s;\r\n    margin-top:-10px;\r\n}\r\n    \r\n.nav-item:hover::after{width:100%;}\r\n    \r\n.nav-link{padding:15px 5px;transition:0.2s;}\r\n    \r\n.navbar-nav .nav-link {\r\n    \r\n    color:#000;\r\n    font-weight:bold;\r\n    font-size:18px;\r\n}\r\n    \r\n.navbar-nav .active > .nav-link{\r\n  \r\n    width:100%;\r\n    height:51px;\r\n    \r\n  border-bottom: .25rem solid transparent;\r\n  border-bottom-color: #9b58b5;\r\n   \r\n}\r\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbInNyYy9hcHAvbmF2YmFyL25hdmJhci5jb21wb25lbnQuY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7V0FxQlc7O0FBRVg7SUFDSSxVQUFVO0lBQ1YsYUFBYTtJQUNiLFNBQVM7SUFDVCxVQUFVO0lBQ1Ysa0JBQWtCO0lBQ2xCLGdCQUFnQjtJQUNoQixnQkFBZ0I7QUFDcEI7O0FBRUEsdUJBQXVCLFVBQVUsQ0FBQzs7QUFHbEMsVUFBVSxnQkFBZ0IsQ0FBQyxlQUFlLENBQUM7O0FBRTNDOztJQUVJLFVBQVU7SUFDVixnQkFBZ0I7SUFDaEIsY0FBYztBQUNsQjs7QUFFQTs7SUFFSSxVQUFVO0lBQ1YsV0FBVzs7RUFFYix1Q0FBdUM7RUFDdkMsNEJBQTRCOztBQUU5QiIsImZpbGUiOiJzcmMvYXBwL25hdmJhci9uYXZiYXIuY29tcG9uZW50LmNzcyIsInNvdXJjZXNDb250ZW50IjpbIi8qIC5uYXZiYXItY29udGFpbmVyIHtcclxuICAgIGNvbG9yOiByZ2JhKDIxNSwgMjE1LCAyMTUsIDAuNzEpO1xyXG4gICAgd2lkdGg6IDI1JTtcclxuICAgIGJhY2tncm91bmQ6IHJnYmEoMCwgMCwgMCwgMC4xKTtcclxuICAgIGJhY2tkcm9wLWZpbHRlcjogYmx1cigxMHB4KTtcclxufVxyXG4gICAgLm5hdmJhciB7XHJcbiAgICAgIGRpc3BsYXk6IGZsZXg7XHJcbiAgICAgIHdpZHRoOiAxMDAlO1xyXG4gICAgfVxyXG4gICAgLm5hdmJhciBfX2l0ZW0ge1xyXG4gICAgICAgIHBhZGRpbmc6IDAgMzBweDtcclxuICAgICAgICBib3JkZXItYm90dG9tLXdpZHRoOiA4cHg7XHJcbiAgICAgICAgYm9yZGVyLWJvdHRvbS1zdHlsZTogc29saWQ7XHJcbiAgICAgICAgZm9udC13ZWlnaHQ6IDgwMDtcclxuICAgICAgICBmbGV4OiAxIDAgMDtcclxuICAgICAgICB0ZXh0LWFsaWduOiBjZW50ZXI7XHJcbiAgICAgICAgbGluZS1oZWlnaHQ6IDI7XHJcbiAgICB9XHJcbiAgICAubmF2YmFyIDpob3Zlcjpub3QoLm5hdmJhcl9faXRlbS0tYWN0aXZlKSB7XHJcbiAgICAgICAgICBjb2xvcjogd2hpdGU7XHJcbiAgICAgICAgfSAqL1xyXG4gICAgXHJcbi5uYXYtaXRlbTo6YWZ0ZXJ7XHJcbiAgICBjb250ZW50OicnO1xyXG4gICAgZGlzcGxheTpibG9jaztcclxuICAgIHdpZHRoOjBweDtcclxuICAgIGhlaWdodDo0cHg7XHJcbiAgICBiYWNrZ3JvdW5kOiM5YjU4YjU7XHJcbiAgICB0cmFuc2l0aW9uOiAwLjJzO1xyXG4gICAgbWFyZ2luLXRvcDotMTBweDtcclxufVxyXG5cclxuLm5hdi1pdGVtOmhvdmVyOjphZnRlcnt3aWR0aDoxMDAlO31cclxuXHJcblxyXG4ubmF2LWxpbmt7cGFkZGluZzoxNXB4IDVweDt0cmFuc2l0aW9uOjAuMnM7fVxyXG5cclxuLm5hdmJhci1uYXYgLm5hdi1saW5rIHtcclxuICAgIFxyXG4gICAgY29sb3I6IzAwMDtcclxuICAgIGZvbnQtd2VpZ2h0OmJvbGQ7XHJcbiAgICBmb250LXNpemU6MThweDtcclxufVxyXG5cclxuLm5hdmJhci1uYXYgLmFjdGl2ZSA+IC5uYXYtbGlua3tcclxuICBcclxuICAgIHdpZHRoOjEwMCU7XHJcbiAgICBoZWlnaHQ6NTFweDtcclxuICAgIFxyXG4gIGJvcmRlci1ib3R0b206IC4yNXJlbSBzb2xpZCB0cmFuc3BhcmVudDtcclxuICBib3JkZXItYm90dG9tLWNvbG9yOiAjOWI1OGI1O1xyXG4gICBcclxufSJdfQ== */"
 
 /***/ }),
 
