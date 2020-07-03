@@ -206,7 +206,7 @@ module.exports = "h3{\r\n    color: #9b58b5;\r\n}\r\n/*# sourceMappingURL=data:a
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <ng-container *ngFor='let item of items$ | async'>\n      <app-item class=\"col-sm-6 col-md-4 col-lg-3 mt-4\"  *ngIf='!item.received'\n        (received)=\"receivedClick($event)\" [item]=\"item\">\n      </app-item>\n    </ng-container>\n  </div>\n</div>\n<footer class=\"fixed-bottom\">\n  <a [routerLink]=\"['/recievedItems']\" routerLinkActive=\"router-link-active\">\n    <h3>See all recieved items</h3>\n  </a>\n</footer>"
+module.exports = "<div class=\"container\">\n  <div class=\"row\">\n    <ng-container *ngFor='let item of items$ | async'>\n      <app-item class=\"col-sm-6 col-md-4 col-lg-3 mt-4\" \n        (received)=\"receivedClick($event)\" [item]=\"item\">\n      </app-item>\n    </ng-container>\n  </div>\n</div>\n<footer class=\"fixed-bottom\">\n  <a [routerLink]=\"['/recievedItems']\" routerLinkActive=\"router-link-active\">\n    <h3>See all recieved items</h3>\n  </a>\n</footer>"
 
 /***/ }),
 
@@ -242,17 +242,19 @@ var ItemsListComponent = /** @class */ (function () {
     }
     ItemsListComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.items$ = this.itemsQuery.selectAll().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.sort(function (item1, item2) { return (item1.deliveryDate > item2.deliveryDate ? 1 : -1); }); }));
-        ;
+        this.items$ = this.itemsQuery.selectAll().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (itmes) { return itmes.filter(function (item) { return !item.received; }); }), Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (res) { return res.sort(function (item1, item2) { return (item1.deliveryDate > item2.deliveryDate ? 1 : -1); }); }));
         var source = Object(rxjs__WEBPACK_IMPORTED_MODULE_3__["interval"])(10000);
         this.subscription = source.subscribe(function (val) { return _this.getRate(); });
     };
     ItemsListComponent.prototype.getRate = function () {
-        this.service.getConversion().subscribe(
-        // data => { this.conversionRate = data.rates.USD }
-        );
-        // this.items$.pipe(
-        //   map(items => (items.forEach(i => ({ ...i, priceUsd: (i.priceIls * this.conversionRate) })))));
+        var _this = this;
+        this.service.getConversion().subscribe(function (data) {
+            _this.items$.pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_6__["map"])(function (items) { return (items.forEach(function (i) {
+                var cloneItem = Object.assign({}, i);
+                cloneItem.priceUsd = cloneItem.priceIls * _this.conversionRate;
+                console.log(cloneItem.priceUsd);
+            })); }));
+        });
     };
     ItemsListComponent.prototype.receivedClick = function (item) {
         var cloneItem = Object.assign({}, item);
@@ -420,7 +422,7 @@ module.exports = "\n/*# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW
 /*! no static exports found */
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"container\">\n    <div class=\"row\">\n        <ng-container *ngFor='let item of receivedItems$ | async'>\n            <div class=\"col-sm-6 col-md-4 col-lg-3 mt-4\" *ngIf='item.received'>\n                <div class=\"card\">\n                    <div class=\"card-block\">\n                        <h4 class=\"card-title\">{{item.itemName}}</h4>\n                        <div class=\"card-text\">{{item.store}}</div>\n                        <div class=\"card-text\">{{item.priceIls}} &#8362;</div>\n                        <div class=\"card-text\">{{item.priceUsd}} $</div>\n                    </div>\n                    <div class=\"card-footer\">\n                        <span>{{item.deliveryDate | date: 'dd/MM/yyyy'}}</span>\n                    </div>\n                </div>\n            </div>\n        </ng-container>\n    </div>\n</div>"
+module.exports = "<div class=\"container\">\n    <div class=\"row\">\n        <ng-container *ngFor='let item of receivedItems$ | async'>\n            <div class=\"col-sm-6 col-md-4 col-lg-3 mt-4\">\n                <div class=\"card\">\n                    <div class=\"card-block\">\n                        <h4 class=\"card-title\">{{item.itemName}}</h4>\n                        <div class=\"card-text\">{{item.store}}</div>\n                        <div class=\"card-text\">{{item.priceIls}} &#8362;</div>\n                        <div class=\"card-text\">{{item.priceUsd}} $</div>\n                    </div>\n                    <div class=\"card-footer\">\n                        <span>{{item.deliveryDate | date: 'dd/MM/yyyy'}}</span>\n                    </div>\n                </div>\n            </div>\n        </ng-container>\n    </div>\n</div>"
 
 /***/ }),
 
@@ -437,6 +439,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var tslib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! tslib */ "./node_modules/tslib/tslib.es6.js");
 /* harmony import */ var _angular_core__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @angular/core */ "./node_modules/@angular/core/fesm5/core.js");
 /* harmony import */ var _state_item_query__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../state/item.query */ "./src/app/items/state/item.query.ts");
+/* harmony import */ var rxjs_operators__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! rxjs/operators */ "./node_modules/rxjs/_esm5/operators/index.js");
+
 
 
 
@@ -445,7 +449,7 @@ var ReceivedItemsListComponent = /** @class */ (function () {
         this.itemsQuery = itemsQuery;
     }
     ReceivedItemsListComponent.prototype.ngOnInit = function () {
-        this.receivedItems$ = this.itemsQuery.selectAll();
+        this.receivedItems$ = this.itemsQuery.selectAll().pipe(Object(rxjs_operators__WEBPACK_IMPORTED_MODULE_3__["map"])(function (itmes) { return itmes.filter(function (item) { return item.received; }); }));
     };
     ReceivedItemsListComponent = tslib__WEBPACK_IMPORTED_MODULE_0__["__decorate"]([
         Object(_angular_core__WEBPACK_IMPORTED_MODULE_1__["Component"])({
